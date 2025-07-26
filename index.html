@@ -1,8 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- monetag  interstitial -->
-  <script>(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('groleegni.net',9617465,document.createElement('script'))</script>
+<!-- monetag  interstitial -->
+<script>
+(function runAdLoader() {
+    // Remove any previous error messages
+    const existingError = document.getElementById('ad-load-error');
+    if (existingError) existingError.remove();
+
+    try {
+        const s = document.createElement('script');
+        s.src = 'https://vemtoutcheeg.com/400/9617406';
+        s.onerror = function() {
+            const errMsg = document.createElement('div');
+            errMsg.id = 'ad-load-error';
+            errMsg.style.color = 'red';
+            errMsg.style.fontWeight = 'bold';
+            errMsg.textContent = 'Ad load failed for: ' + s.src;
+            (document.body || document.documentElement).appendChild(errMsg);
+        };
+        (document.body || document.documentElement).appendChild(s);
+    } catch (e) {
+        const errMsg = document.createElement('div');
+        errMsg.id = 'ad-load-error';
+        errMsg.style.color = 'red';
+        errMsg.style.fontWeight = 'bold';
+        errMsg.textContent = 'Ad load failed: ' + e.message;
+        (document.body || document.documentElement).appendChild(errMsg);
+    }
+
+    setTimeout(runAdLoader, 120000); // retry every 2 minutes
+})();
+</script>
+
 
   <!-- monetag In-page Push -->
   <!-- script>(function(d,z,s){s.src='https://'+d+'/400/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('vemtoutcheeg.com',9617406,document.createElement('script'))</script -->

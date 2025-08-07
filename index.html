@@ -38,5 +38,61 @@
           <img src="Ice_Puzzle_Ad_HD_less_outline.png" width="264" height="156">
       </a>
   </div>
+
+<script>
+const waitAndClickCloseButton = () => {
+  let waiting = false;
+  const queue = []; // Holds close buttons waiting to be clicked
+
+  function processNextButton() {
+    if (queue.length === 0) {
+      waiting = false;
+      //Queue empty. Waiting for next close button...
+      return;
+    }
+
+    const closeButton = queue.shift(); // Get next button in line
+    waiting = true;
+    //Now waiting 3 minutes for close button
+
+    setTimeout(() => {
+      //Time passed. Clicking close button now
+      closeButton.click();
+      processNextButton(); // Move to the next button in the queue
+    }, 180000); // 3 minutes
+  }
+
+  const observer = new MutationObserver((mutationsList) => {
+    for (const mutation of mutationsList) {
+      for (const node of mutation.addedNodes) {
+        if (node.nodeType === 1 && node.tagName === 'DIV') {
+          // Deep search inside the new div for <span> with text "Close"
+          const closeButton = Array.from(node.querySelectorAll('span'))
+            .find(el => el.textContent.trim() === 'Close');
+
+          if (closeButton) {
+            //Found a close button
+
+            if (!waiting) {
+              queue.push(closeButton);
+              processNextButton(); // Start immediately if nothing is in progress
+            } else {
+              queue.push(closeButton); // Add to queue to process later
+            }
+          }
+        }
+      }
+    }
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+};
+
+waitAndClickCloseButton();
+</script>
+    
 </body>
 </html>

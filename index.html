@@ -60,7 +60,14 @@ waitAndClickCloseButton = () =>
       setTimeout(() => 
       {
           //Finished waiting, click button if not null
-          if(closeButton) { closeButton.click(); }
+          if(closeButton) 
+		  {
+			  closeButton.dispatchEvent(new MouseEvent('click', 
+													   { view: window,
+  														 bubbles: true,
+  														 cancelable: true
+													   }));
+		  }
           processNextButton();
        }, 15000);
     }
@@ -68,18 +75,18 @@ waitAndClickCloseButton = () =>
     observer = new MutationObserver(() => 
     {
       closeButton = Array.from(document.querySelectorAll('span'))
-        .find(el => el.textContent.trim() === 'Close').parentNode;
+        .find(el => el.textContent.trim() === 'Close');
 
-      if (closeButton) 
+      if (closeButton && closeButton.parentNode) 
       {
         if(!waiting) 
         {
-          queue.push(closeButton);
+          queue.push(closeButton.parentNode);
           processNextButton();
         } 
         else 
         {
-        	queue.push(closeButton);
+        	queue.push(closeButton.parentNode);
       	}
       }
     });

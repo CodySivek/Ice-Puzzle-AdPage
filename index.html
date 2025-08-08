@@ -68,7 +68,7 @@ waitAndClickCloseButton = () =>
     observer = new MutationObserver(() => 
     {
       closeButton = Array.from(document.querySelectorAll('span'))
-        .find(el => el.textContent.trim() === 'Close');
+        .find(el => el.textContent.trim() === 'Close').parentNode;
 
       if (closeButton) 
       {

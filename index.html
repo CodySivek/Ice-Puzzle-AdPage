@@ -44,7 +44,26 @@ waitAndClickCloseButton = () =>
 {
 	let waiting = false;
     let queue = [];
-    
+
+	function markClick(x, y) {
+  const marker = document.createElement('div');
+  marker.style.position = 'fixed';
+  marker.style.left = `${x}px`;
+  marker.style.top = `${y}px`;
+  marker.style.width = '10px';
+  marker.style.height = '10px';
+  marker.style.background = 'red';
+  marker.style.borderRadius = '50%';
+  marker.style.zIndex = '9999';
+  marker.style.pointerEvents = 'none';
+  marker.style.opacity = '0.8';
+  document.body.appendChild(marker);
+
+  // Remove after 1 second
+  setTimeout(() => marker.remove(), 90000);
+}
+
+	
     function processNextButton() 
     {
 	  console.log('Processing next button');
@@ -83,6 +102,8 @@ waitAndClickCloseButton = () =>
 			  const centerX = (rect.left + rect.width) / 5.0;
 			  const centerY = (rect.top + rect.height) * .75;
 			  console.log('Clicking @ (', centerX, ',' ,centerY, ')' );
+
+			  markClick(centerX, centerY);
 			  mainDiv.dispatchEvent(new MouseEvent('click', 
 													   { view: window,
   														 bubbles: true,

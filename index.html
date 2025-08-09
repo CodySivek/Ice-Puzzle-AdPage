@@ -96,6 +96,8 @@ waitAndClickCloseButton = () =>
       }
     });
 
+	console.log('Finished creating observer');
+	
   	observer.observe(document.body, {
       childList: true,
       subtree: true,

@@ -106,13 +106,29 @@ waitAndClickCloseButton = () =>
 			  markClick(centerX, centerY);
 			  const el = document.elementFromPoint(centerX, centerY);
 			  console.log(el);
-			  el.dispatchEvent(new MouseEvent('click', 
+			  /*el.dispatchEvent(new MouseEvent('click', 
 													   { view: window,
   														 bubbles: true,
   														 cancelable: true,
 				 										 clientX: centerX,
 														 clientY: centerY
-													   }));
+													   }));*/
+				  const eventProps = {
+					    bubbles: true,
+					    cancelable: true,
+					    clientX: centerX,
+					    clientY: centerY,
+					    view: window,
+					    pointerId: 1,
+					    pointerType: 'mouse',
+					    isPrimary: true,
+					    buttons: 1,
+					    pressure: 0.5
+					  };
+
+			  	el.dispatchEvent(new PointerEvent('pointerdown', eventProps);
+			    el.dispatchEvent(new PointerEvent('pointerup', eventProps);
+			  
 		  } else { console.log('Could not find div'); }
           processNextButton();
        }, 15000);

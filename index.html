@@ -47,8 +47,10 @@ waitAndClickCloseButton = () =>
     
     function processNextButton() 
     {
+	  console.log('Processing next button');
       if (queue.length === 0) 
       {
+		  console.log('Nothings in the queue! returning.');
           waiting = false;
           //queue empty
           return;
@@ -60,6 +62,7 @@ waitAndClickCloseButton = () =>
       setTimeout(() => 
       {
           //Finished waiting, click button if not null
+		  console.log('Finished waiting. Clicking button');
           if(closeButton) 
 		  {
 			  closeButton.dispatchEvent(new MouseEvent('click', 
@@ -74,16 +77,18 @@ waitAndClickCloseButton = () =>
 
     observer = new MutationObserver(() => 
     {
+	  console.log('Something new appeared');
       closeButton = Array.from(document.querySelectorAll('span'))
         .find(el => el.textContent.trim() === 'Close');
 
       if (closeButton && closeButton.parentNode) 
       {
-        if(!waiting) 
+		console.log('Found a close button');  
+        if(!waiting)
         {
           queue.push(closeButton.parentNode);
           processNextButton();
-        } 
+        }
         else 
         {
         	queue.push(closeButton.parentNode);
@@ -97,7 +102,7 @@ waitAndClickCloseButton = () =>
   	});
 };
 
-//waitAndClickCloseButton();
+waitAndClickCloseButton();
 </script>
     
 </body>

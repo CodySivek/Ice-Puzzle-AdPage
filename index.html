@@ -75,13 +75,24 @@ waitAndClickCloseButton = () =>
        }, 15000);
     }
 
-    observer = new MutationObserver(() => 
+    const observer = new MutationObserver((mutationList, observer) => 
     {
 	  console.log('Something new appeared');
-      let closeButton = Array.from(document.querySelectorAll('span'))
-        .find(el => el.textContent.trim() === 'Close');
+	for(const mutation of mutationList)
+		{
+			if(mutation.target.nodeName == "SPAN" && mutation.target.textContent == "Close")
+			{
+							console.log('Detected an element with Close span');
+				          queue.push(mutation.target);
+          				  processNextButton();
+						  break;
+			}
+		}
+				
+      /*let closeButton = Array.from(document.querySelectorAll('span'))
+        .find(el => el.textContent.trim() === 'Close');*/
 
-      if (closeButton) 
+      /*if (closeButton) 
       {
 		console.log('Found a close button');
 
@@ -100,7 +111,7 @@ waitAndClickCloseButton = () =>
         {
         	queue.push(closeButton.parentNode);
       	}
-      }
+      }*/
     });
 
 	console.log('Finished creating observer');

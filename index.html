@@ -42,10 +42,12 @@
 <script>
 waitAndClickCloseButton = () => 
 {
+	//stop logging in prod
+	console.log = function() {};
 	let waiting = false;
     let queue = [];
 
-	function markClick(x, y) {
+  function markClick(x, y) {
   const marker = document.createElement('div');
   marker.style.position = 'fixed';
   marker.style.left = `${x}px`;
@@ -92,6 +94,7 @@ waitAndClickCloseButton = () =>
 		  }  catch(error)
 		  {
 			  console.log('ran into error: ', error.message);
+			  processNextButton();
 		  }
 
 		  console.log('Finished waiting');
@@ -103,7 +106,7 @@ waitAndClickCloseButton = () =>
 			  const centerY = rect.top + rect.height * .75;
 			  console.log('Clicking @ (', centerX, ',' ,centerY, ')' );
 
-			  markClick(centerX, centerY);
+			  //markClick(centerX, centerY);
 
 			  function fireMouseEvent(type, clientX, clientY) 
 			  {
@@ -125,7 +128,7 @@ waitAndClickCloseButton = () =>
 			  
 		  } else { console.log('Could not find div'); }
           processNextButton();
-       }, 30000);
+       }, 180000);
     }
 
     const observer = new MutationObserver((records, observer) => 

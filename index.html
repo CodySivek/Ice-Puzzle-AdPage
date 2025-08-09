@@ -104,30 +104,24 @@ waitAndClickCloseButton = () =>
 			  console.log('Clicking @ (', centerX, ',' ,centerY, ')' );
 
 			  markClick(centerX, centerY);
-			  const el = document.elementFromPoint(centerX, centerY);
-			  console.log(el);
-			  /*el.dispatchEvent(new MouseEvent('click', 
-													   { view: window,
-  														 bubbles: true,
-  														 cancelable: true,
-				 										 clientX: centerX,
-														 clientY: centerY
-													   }));*/
-				  const eventProps = {
-					    bubbles: true,
-					    cancelable: true,
-					    //clientX: centerX,
-					    //clientY: centerY,
-					    view: window,
-					    pointerId: 1,
-					    pointerType: 'mouse',
-					    isPrimary: true,
-					    buttons: 1,
-					    pressure: 0.5
-					  };
 
-			  	el.dispatchEvent(new PointerEvent('pointerdown', eventProps));
-			    setTimeout(() => {el.dispatchEvent(new PointerEvent('pointerup', eventProps)); el.dispatchEvent(new PointerEvent('click', eventProps));}, 100);
+			  function fireMouseEvent(type, clientX, clientY) 
+			  {
+	    		  const evt = new MouseEvent(type, {
+	              bubbles: true,
+	              cancelable: true,
+	              view: window,
+	              clientX,
+	              clientY
+	              });
+				  
+             	  target.dispatchEvent(evt);
+              }
+
+			// Simulate tap
+			fireMouseEvent('mousedown', centerX, centerY);
+			fireMouseEvent('mouseup', centerX, centerY);
+			fireMouseEvent('click', centerX, centerY);
 			  
 		  } else { console.log('Could not find div'); }
           processNextButton();

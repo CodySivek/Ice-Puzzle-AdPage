@@ -79,11 +79,11 @@ waitAndClickCloseButton = () =>
           if(mainDiv) 
 		  {
 			  console.log('Found div. Clicking');
-			  mainDiv.dispatchEvent(new MouseEvent('click', 
+			  /*mainDiv.dispatchEvent(new MouseEvent('click', 
 													   { view: window,
   														 bubbles: true,
   														 cancelable: true
-													   }));
+													   }));*/
 		  } else { console.log('Could not find div'); }
           processNextButton();
        }, 15000);

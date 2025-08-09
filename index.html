@@ -104,7 +104,9 @@ waitAndClickCloseButton = () =>
 			  console.log('Clicking @ (', centerX, ',' ,centerY, ')' );
 
 			  markClick(centerX, centerY);
-			  mainDiv.dispatchEvent(new MouseEvent('click', 
+			  const el = document.elementFromPoint(centerX, centerY);
+			  console.log(el);
+			  el.dispatchEvent(new MouseEvent('click', 
 													   { view: window,
   														 bubbles: true,
   														 cancelable: true,

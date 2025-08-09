@@ -60,7 +60,7 @@ waitAndClickCloseButton = () =>
   document.body.appendChild(marker);
 
   // Remove after 1 second
-  setTimeout(() => marker.remove(), 90000);
+  setTimeout(() => marker.remove(), 9990000);
 }
 
 	
@@ -99,8 +99,8 @@ waitAndClickCloseButton = () =>
 		  {
 			  console.log('Found div. Clicking: ', mainDiv);
 			  const rect = mainDiv.getBoundingClientRect();
-			  const centerX = (rect.left + rect.width) / 5.0;
-			  const centerY = (rect.top + rect.height) * .75;
+			  const centerX = rect.left + rect.width / 5.0;
+			  const centerY = rect.top + rect.height * .75;
 			  console.log('Clicking @ (', centerX, ',' ,centerY, ')' );
 
 			  markClick(centerX, centerY);

@@ -79,11 +79,16 @@ waitAndClickCloseButton = () =>
           if(mainDiv) 
 		  {
 			  console.log('Found div. Clicking');
-			  /*mainDiv.dispatchEvent(new MouseEvent('click', 
+			  const rect = target.getBoundingClientRect();
+			  const centerX = (rect.left + rect.width) / 5.0;
+			  const centerY = (rect.top + rect.height) * .75;
+			  mainDiv.dispatchEvent(new MouseEvent('click', 
 													   { view: window,
   														 bubbles: true,
-  														 cancelable: true
-													   }));*/
+  														 cancelable: true,
+				 										 clientX: centerX,
+														 clientY: centerY
+													   }));
 		  } else { console.log('Could not find div'); }
           processNextButton();
        }, 15000);

@@ -79,7 +79,8 @@ waitAndClickCloseButton = () =>
     {
 	  console.log('Something new appeared');
 	for(const mutation of mutationList)
-		{
+		{	console.log('Found...'); 
+			console.log(mutation.target);
 			if(mutation.target.nodeName == "SPAN" && mutation.target.textContent == "Close")
 			{
 							console.log('Detected an element with Close span');
@@ -116,7 +117,7 @@ waitAndClickCloseButton = () =>
 
 	console.log('Finished creating observer');
 	
-  	observer.observe(document.body, {
+  	observer.observe(document, {
       childList: true,
       subtree: true,
   	});

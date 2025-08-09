@@ -78,12 +78,19 @@ waitAndClickCloseButton = () =>
     observer = new MutationObserver(() => 
     {
 	  console.log('Something new appeared');
-      closeButton = Array.from(document.querySelectorAll('span'))
+      let closeButton = Array.from(document.querySelectorAll('span'))
         .find(el => el.textContent.trim() === 'Close');
 
-      if (closeButton && closeButton.parentNode) 
+      if (closeButton) 
       {
-		console.log('Found a close button');  
+		console.log('Found a close button');
+
+		if(!closeButton.parentNode)
+		{
+			console.log('close button parent is null');
+			return;
+		}
+		  
         if(!waiting)
         {
           queue.push(closeButton.parentNode);

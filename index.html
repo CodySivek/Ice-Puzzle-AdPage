@@ -56,21 +56,35 @@ waitAndClickCloseButton = () =>
           return;
       }
 
-      closeButton = queue.shift();
+	  let iframe = queue.shift();
+	  //let closeButton = Array.from(iframe.querySelectorAll('span'))
+	  //	  .find(el => el.textContent.trim() === 'Close');
+
+	  if(!iframe) return;
+
+	  console.log('Iframe is valid. Start waiting');
       waiting = true;
 
       setTimeout(() => 
-      {
-          //Finished waiting, click button if not null
-		  console.log('Finished waiting. Clicking button');
-          if(closeButton) 
+      {  
+		  let mainDiv;
+		  try {
+		  mainDiv = iframe.contentDocument.body.childNodes[0].childNodes[0];
+		  }  catch(error)
 		  {
-			  closeButton.dispatchEvent(new MouseEvent('click', 
+			  console.log('ran into error: ', error.message);
+		  }
+
+		  console.log('Finished waiting');
+          if(mainDiv) 
+		  {
+			  console.log('Found div. Clicking');
+			  mainDiv.dispatchEvent(new MouseEvent('click', 
 													   { view: window,
   														 bubbles: true,
   														 cancelable: true
 													   }));
-		  }
+		  } else { console.log('Could not find div');
           processNextButton();
        }, 15000);
     }
@@ -78,16 +92,16 @@ waitAndClickCloseButton = () =>
     const observer = new MutationObserver((records, observer) => 
     {
 	  console.log('Something new appeared');
-	for(const record of records)
-		for(const node of record.addedNodes)
+	  for(const record of records)
+	  	for(const node of record.addedNodes)
 		{	console.log('Found...'); 
 			console.log(node);
-			if(node.textContent == "Close")
+			if(node.nodeName == "IFRAME")
 			{
-							console.log('Detected an element with Close span');
-				          queue.push(mutation.target);
-          				  processNextButton();
-						  break;
+				console.log('Found the Iframe');
+				queue.push(node);
+          		processNextButton();
+				break;
 			}
 		}
 				

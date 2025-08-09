@@ -79,7 +79,7 @@ waitAndClickCloseButton = () =>
           if(mainDiv) 
 		  {
 			  console.log('Found div. Clicking: ', mainDiv);
-			  const rect = target.getBoundingClientRect();
+			  const rect = mainDiv.getBoundingClientRect();
 			  const centerX = (rect.left + rect.width) / 5.0;
 			  const centerY = (rect.top + rect.height) * .75;
 			  console.log('Clicking @ (', centerX, ',' ,centerY, ')' );

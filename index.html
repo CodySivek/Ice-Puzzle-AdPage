@@ -75,13 +75,14 @@ waitAndClickCloseButton = () =>
        }, 15000);
     }
 
-    const observer = new MutationObserver((mutationList, observer) => 
+    const observer = new MutationObserver((records, observer) => 
     {
 	  console.log('Something new appeared');
-	for(const mutation of mutationList)
+	for(const record of records)
+		for(const node of record.addedNodes)
 		{	console.log('Found...'); 
-			console.log(mutation.target);
-			if(mutation.target.nodeName == "SPAN" && mutation.target.textContent == "Close")
+			console.log(node);
+			if(node.textContent == "Close")
 			{
 							console.log('Detected an element with Close span');
 				          queue.push(mutation.target);
